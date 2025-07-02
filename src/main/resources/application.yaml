@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: bookshelfs
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 25
+    ssl:
+      enabled: false
+    username: 94a49ed0d55b03
+    password: b76dd5bc1fabb0
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: ${MAIL_USERNAME:bookshelfs.email.confirm@gmail.com}
+#    password: ${MAIL_PASSWORD:yrmv qflu fljp vpmj}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    test-connection: true
+
+  servlet:
+    multipart:
+      max-file-size: 4MB
+      max-request-size: 4MB
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bookshelf}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+
+
+app:
+  base-url: http://localhost:8080/api
+jwt:
+  secret: ${JWT_SECRET:9491f6bafbc5aed727b89d6998f38df3cc6651be2152d80f2d5e2e07a120ddd0}
+  expiration: 86400000 # 24 часа
+
+recaptcha:
+  secret: ${RECAPTCHA_SECRET:6LeQDXQrAAAAABRRZiOJ-R3UqD6-pWhC37nHFEK4}
+  site: ${RECAPTCHA_SITE:6LeQDXQrAAAAALIamXPn0hvN5h7lWxonsGLSdwxo}
+
+#  liquibase:
+#    change-log: db/changelog/db.changelog-master.xml
+
+logging:
+  level:
+    io.petprojects.bookshelfs: DEBUG
