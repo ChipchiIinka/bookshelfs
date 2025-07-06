@@ -1,4 +1,4 @@
-package io.petprojects.bookshelfs.service;
+package io.petprojects.bookshelfs.service.secure;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

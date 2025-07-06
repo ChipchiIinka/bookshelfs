@@ -1,12 +1,12 @@
-package io.petprojects.bookshelfs.service;
+package io.petprojects.bookshelfs.service.secure;
 
 import io.petprojects.bookshelfs.entity.JwtBlacklistEntity;
 import io.petprojects.bookshelfs.entity.ReaderEntity;
 import io.petprojects.bookshelfs.exception.BookshelfsException;
 import io.petprojects.bookshelfs.exception.ErrorType;
-import io.petprojects.bookshelfs.model.JwtResponse;
-import io.petprojects.bookshelfs.model.LoginRequest;
-import io.petprojects.bookshelfs.model.RegisterRequest;
+import io.petprojects.bookshelfs.model.response.JwtResponse;
+import io.petprojects.bookshelfs.model.request.LoginRequest;
+import io.petprojects.bookshelfs.model.request.RegisterRequest;
 import io.petprojects.bookshelfs.repository.JwtBlacklistRepository;
 import io.petprojects.bookshelfs.repository.ReaderRepository;
 import io.petprojects.bookshelfs.service.mapper.ReaderMapper;
@@ -44,6 +44,8 @@ public class AuthService {
         String verificationCode = UUID.randomUUID().toString();
         LocalDateTime verificationCodeExpiry = LocalDateTime.now().plusDays(DAYS_OF_VERIFICATION_CODE_EXPIRATION);
         ReaderEntity user = readerMapper.toEntity(request, verificationCode, verificationCodeExpiry, false);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setBookCount(0);
         userRepository.save(user);
         emailService.sendVerificationEmail(request.getEmail(), verificationCode);
         return String.format(EMAIL_SENT_MESSAGE, request.getEmail());

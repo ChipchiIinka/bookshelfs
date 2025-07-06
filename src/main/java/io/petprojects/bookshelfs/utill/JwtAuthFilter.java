@@ -1,8 +1,10 @@
 package io.petprojects.bookshelfs.utill;
 
-import io.petprojects.bookshelfs.service.AuthService;
-import io.petprojects.bookshelfs.service.CustomUserDetailsService;
-import io.petprojects.bookshelfs.service.JwtService;
+import io.petprojects.bookshelfs.exception.BookshelfsException;
+import io.petprojects.bookshelfs.exception.ErrorType;
+import io.petprojects.bookshelfs.service.secure.AuthService;
+import io.petprojects.bookshelfs.service.secure.ReaderDetailsService;
+import io.petprojects.bookshelfs.service.secure.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +26,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final AuthService authService;
-    private final CustomUserDetailsService userDetailsService;
+    private final ReaderDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(
@@ -46,6 +48,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private void setAuthentication(String username) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+        // Добавляем проверку активности аккаунта
+        if (!userDetails.isEnabled()) {
+            throw new BookshelfsException(ErrorType.CLIENT_ERROR, "Аккаунт не активирован");
+        }
 
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(

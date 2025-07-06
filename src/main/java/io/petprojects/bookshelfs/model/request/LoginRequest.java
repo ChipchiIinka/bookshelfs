@@ -1,4 +1,4 @@
-package io.petprojects.bookshelfs.model;
+package io.petprojects.bookshelfs.model.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

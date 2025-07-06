@@ -1,4 +1,4 @@
-package io.petprojects.bookshelfs.model;
+package io.petprojects.bookshelfs.model.response;
 
 import lombok.Builder;
 import lombok.Data;

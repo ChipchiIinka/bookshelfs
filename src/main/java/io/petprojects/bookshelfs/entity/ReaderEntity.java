@@ -1,6 +1,5 @@
 package io.petprojects.bookshelfs.entity;
 
-import io.petprojects.bookshelfs.entity.listner.ReaderEntityListener;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -13,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -20,12 +20,11 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "readers")
-@EntityListeners(ReaderEntityListener.class)
 public class ReaderEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     @NotNull
@@ -45,6 +44,11 @@ public class ReaderEntity implements UserDetails {
     @NotNull
     @Column(length = 30)
     private String publicName;
+
+    private int bookCount;
+
+    @OneToMany(mappedBy = "reader", fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<BookshelfEntity> bookshelfs;
 
     private boolean enabled;
 
