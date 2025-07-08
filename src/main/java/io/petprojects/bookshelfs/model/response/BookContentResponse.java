@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class BookReadResponse {
-    private byte[] data;
+public class BookContentResponse {
+    private String content;
+    private int lastPage;
 }

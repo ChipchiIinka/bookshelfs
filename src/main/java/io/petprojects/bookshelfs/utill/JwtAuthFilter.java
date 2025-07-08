@@ -23,7 +23,6 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
-
     private final JwtService jwtService;
     private final AuthService authService;
     private final ReaderDetailsService userDetailsService;
@@ -48,12 +47,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private void setAuthentication(String username) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-        // Добавляем проверку активности аккаунта
         if (!userDetails.isEnabled()) {
             throw new BookshelfsException(ErrorType.CLIENT_ERROR, "Аккаунт не активирован");
         }
-
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(
                         userDetails,

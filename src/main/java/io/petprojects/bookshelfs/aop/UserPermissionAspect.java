@@ -22,10 +22,6 @@ public class UserPermissionAspect {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         ReaderEntity currentUser = (ReaderEntity) authentication.getPrincipal();
         Long targetId = extractTargetId(joinPoint, checkUserPermission.idParam());
-
-//        if (!currentUser.isAdmin() && !currentUser.getId().equals(targetId)) {
-//            throw new BookshelfsException(ErrorType.FORBIDDEN, "Недостаточно прав для изменения этого профиля!");
-//        }
         if (!currentUser.getId().equals(targetId)) {
             throw new BookshelfsException(ErrorType.FORBIDDEN, "Недостаточно прав для изменения этого профиля!");
         }

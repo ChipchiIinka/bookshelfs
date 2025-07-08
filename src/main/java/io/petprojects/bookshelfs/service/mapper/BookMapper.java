@@ -1,9 +1,9 @@
 package io.petprojects.bookshelfs.service.mapper;
 
 import io.petprojects.bookshelfs.entity.BookEntity;
+import io.petprojects.bookshelfs.model.response.BookContentResponse;
 import io.petprojects.bookshelfs.model.response.BookInfoResponse;
 import io.petprojects.bookshelfs.model.response.BookListResponse;
-import io.petprojects.bookshelfs.model.response.BookReadResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,9 +21,8 @@ public interface BookMapper {
     @Mapping(target = "bookshelf", expression = "java(bookEntity.getBookshelf().getTitle())")
     BookInfoResponse toInfoResponse(BookEntity bookEntity);
 
-    BookReadResponse toReadResponse(BookEntity bookEntity);
+    BookContentResponse toContentResponse(String content, int lastPage);
 
     @Mapping(target = "title", expression = "java(file.getOriginalFilename())")
-    @Mapping(target = "data", expression = "java(file.getBytes())")
     BookEntity toEntity(MultipartFile file) throws IOException;
 }

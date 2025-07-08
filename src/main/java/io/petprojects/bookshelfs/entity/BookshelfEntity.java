@@ -13,13 +13,10 @@ import java.util.List;
 @Entity
 @Table(name = "bookshelfs")
 public class BookshelfEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-
     private Integer bookshelfCapacity;
 
     @OneToMany(mappedBy = "bookshelf", fetch = FetchType.EAGER, orphanRemoval = true)

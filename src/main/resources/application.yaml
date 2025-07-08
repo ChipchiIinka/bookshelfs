@@ -2,17 +2,12 @@ spring:
   application:
     name: bookshelfs
   mail:
-    host: sandbox.smtp.mailtrap.io
-    port: 25
+    host:  ${MAIL_HOST}
+    port:  ${MAIL_PORT}
     ssl:
       enabled: false
-    username: 94a49ed0d55b03
-    password: b76dd5bc1fabb0
-#  mail:
-#    host: smtp.gmail.com
-#    port: 587
-#    username: ${MAIL_USERNAME:bookshelfs.email.confirm@gmail.com}
-#    password: ${MAIL_PASSWORD:yrmv qflu fljp vpmj}
+    username:  ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -31,23 +26,20 @@ spring:
     open-in-view: false
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bookshelf}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
 
 app:
-  base-url: http://localhost:8080/api
+  base-url: ${BASE_URL}
 jwt:
-  secret: ${JWT_SECRET:9491f6bafbc5aed727b89d6998f38df3cc6651be2152d80f2d5e2e07a120ddd0}
+  secret: ${JWT_SECRET}
   expiration: 86400000 # 24 часа
 
-recaptcha:
-  secret: ${RECAPTCHA_SECRET:6LeQDXQrAAAAABRRZiOJ-R3UqD6-pWhC37nHFEK4}
-  site: ${RECAPTCHA_SITE:6LeQDXQrAAAAALIamXPn0hvN5h7lWxonsGLSdwxo}
-
-#  liquibase:
-#    change-log: db/changelog/db.changelog-master.xml
+hcaptcha:
+  secret: ${RECAPTCHA_SECRET:ES_d2e7f30776234e28923fbc73953a103b}
+  site: ${RECAPTCHA_SITE:07f4e8d8-cce0-4b8e-9b4a-5004ec1a7c28}
 
 logging:
   level:

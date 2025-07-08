@@ -24,7 +24,6 @@ public class ReaderUpdateRequest {
     @Schema(example = "Password123!")
     private String passwordRepeated;
 
-
     @Schema(example = "testName")
     private String publicName;
 }

@@ -24,8 +24,9 @@ public class BookshelfController {
             security = @SecurityRequirement(name = "Bearer Authentication"))
     @PostMapping
     @CheckUserPermission
-    public ResponseWrapper<?> createBookshelf(@PathVariable Long readerId,
-                                              @RequestParam String bookshelfTitle) {
+    public ResponseWrapper<?> createBookshelf(
+            @PathVariable Long readerId,
+            @RequestParam String bookshelfTitle) {
         return baseResponseService.wrapSuccessResponse(
                 bookshelfService.create(readerId, bookshelfTitle));
     }
@@ -41,8 +42,10 @@ public class BookshelfController {
             security = @SecurityRequirement(name = "Bearer Authentication"))
     @PatchMapping("/{bookshelfId}/books")
     @CheckUserPermission
-    public ResponseWrapper<?> updateBookshelfTitle(@PathVariable Long readerId, @PathVariable Long bookshelfId,
-                                                   @RequestParam @Valid String bookshelfNewTitle) {
+    public ResponseWrapper<?> updateBookshelfTitle(
+            @PathVariable Long readerId,
+            @PathVariable Long bookshelfId,
+            @RequestParam @Valid String bookshelfNewTitle) {
         return baseResponseService.wrapSuccessResponse(
                 bookshelfService.updateTitle(bookshelfId, bookshelfNewTitle));
     }
@@ -51,7 +54,9 @@ public class BookshelfController {
             security = @SecurityRequirement(name = "Bearer Authentication"))
     @DeleteMapping("/{bookshelfId}/books")
     @CheckUserPermission
-    public ResponseWrapper<?> deleteBookshelf(@PathVariable Long readerId, @PathVariable Long bookshelfId) {
+    public ResponseWrapper<?> deleteBookshelf(
+            @PathVariable Long readerId,
+            @PathVariable Long bookshelfId) {
         return baseResponseService.wrapSuccessResponse(
                 bookshelfService.delete(bookshelfId));
     }

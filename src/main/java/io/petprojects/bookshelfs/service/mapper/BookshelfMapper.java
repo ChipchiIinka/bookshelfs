@@ -10,10 +10,8 @@ import java.util.List;
 
 @Mapper
 public interface BookshelfMapper {
-
     List<BookshelfListResponse> toListResponse(List<BookshelfEntity> bookshelfEntities);
     BookshelfListResponse toBookshelfResponse(BookshelfEntity bookshelfEntity);
-
 
     BookshelfInfoResponse toInfoResponse(BookshelfEntity bookshelfEntity, List<BookListResponse> booksResponse);
 }

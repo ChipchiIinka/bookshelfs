@@ -8,6 +8,7 @@ import io.petprojects.bookshelfs.model.response.JwtResponse;
 import io.petprojects.bookshelfs.service.secure.AuthService;
 import io.petprojects.bookshelfs.service.secure.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,7 +33,10 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseWrapper<?> registerUser(
             @RequestBody @Valid RegisterRequest request,
-            @RequestParam("g-recaptcha-response") @Valid String captchaResponse
+            @Schema(example = "10000000-aaaa-bbbb-cccc-000000000001")
+            @RequestParam("h-captcha-response") @Valid String captchaResponse
+            //10000000-aaaa-bbbb-cccc-000000000001 - true
+            //20000000-aaaa-bbbb-cccc-000000000002 - false
     ) {
         return baseResponseService.wrapSuccessResponse(authService.registerUser(request, captchaResponse));
     }

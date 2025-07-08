@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class EmailService {
-
     private final JavaMailSender mailSender;
 
     @Value("${app.base-url}")
@@ -22,6 +21,14 @@ public class EmailService {
         mail.setTo(email);
         mail.setSubject("Подтверждение регистрации");
         mail.setText("Для активации аккаунта перейдите по ссылке: " + verificationUrl);
+        mailSender.send(mail);
+    }
+
+    public void sendNotifyEmail(String email, String subject, String body) {
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(email);
+        mail.setSubject(subject);
+        mail.setText(body);
         mailSender.send(mail);
     }
 }

@@ -21,7 +21,6 @@ import java.util.Set;
 @Entity
 @Table(name = "readers")
 public class ReaderEntity implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,7 +43,6 @@ public class ReaderEntity implements UserDetails {
     @NotNull
     @Column(length = 30)
     private String publicName;
-
     private int bookCount;
 
     @OneToMany(mappedBy = "reader", fetch = FetchType.EAGER, orphanRemoval = true)

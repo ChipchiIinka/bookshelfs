@@ -36,9 +36,10 @@ public class AuthService {
     private final ReaderMapper readerMapper;
 
     public String registerUser(RegisterRequest request, String captchaResponse) {
-//        if(!captchaService.verifyCaptcha(captchaResponse)){
-//            throw new BookshelfsException(ErrorType.CLIENT_ERROR, "Подтвердите что вы не робот и продолжите регистрацию");
-//        }
+        if(!captchaService.verifyCaptcha(captchaResponse)){
+            throw new BookshelfsException(ErrorType.CLIENT_ERROR,
+                    "Подтвердите что вы не робот и продолжите регистрацию");
+        }
         validateUserNotExists(request.getUsername(), request.getEmail());
 
         String verificationCode = UUID.randomUUID().toString();

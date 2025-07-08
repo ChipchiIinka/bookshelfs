@@ -42,8 +42,9 @@ public class ReaderController {
             security = @SecurityRequirement(name = "Bearer Authentication"))
     @PutMapping("/{readerId}/bookshelfs")
     @CheckUserPermission
-    public ResponseWrapper<?> updateReader(@PathVariable Long readerId,
-                                           @RequestBody @Valid ReaderUpdateRequest readerUpdateRequest) {
+    public ResponseWrapper<?> updateReader(
+            @PathVariable Long readerId,
+            @RequestBody @Valid ReaderUpdateRequest readerUpdateRequest) {
         return baseResponseService.wrapSuccessResponse(
                 readerService.updateById(readerId, readerUpdateRequest));
     }

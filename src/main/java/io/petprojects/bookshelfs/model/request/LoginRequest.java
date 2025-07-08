@@ -8,11 +8,9 @@ import lombok.Data;
 @Data
 @Builder
 public class LoginRequest {
-
     @NotNull
     @Schema(example = "testuser")
     private String login;
-
     @NotNull
     @Schema(example = "Password123!")
     private String password;

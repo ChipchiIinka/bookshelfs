@@ -20,7 +20,6 @@ import java.util.Objects;
 @Slf4j
 @RequiredArgsConstructor
 public class ReaderService {
-
     private final PasswordEncoder passwordEncoder;
     private final BookshelfService bookshelfService;
     private final ReaderRepository readerRepository;
@@ -31,15 +30,12 @@ public class ReaderService {
     }
 
     public ReaderInfoResponse findById(Long readerId) {
-        ReaderEntity reader = readerRepository.findById(readerId)
-                .orElseThrow(() -> new BookshelfsException(ErrorType.NOT_FOUND,
-                        "Пользователь не найден с id: " + readerId));
+        ReaderEntity reader = getReaderById(readerId);
         return readerMapper.toInfoResponse(reader, bookshelfService.findAll(readerId));
     }
 
-    public String updateById(Long id, ReaderUpdateRequest newReader) {
-        ReaderEntity readerEntity = readerRepository.findById(id).orElseThrow(() -> new BookshelfsException(ErrorType.NOT_FOUND,
-                "Пользователь не найден с id: " + id));
+    public String updateById(Long readerId, ReaderUpdateRequest newReader) {
+        ReaderEntity readerEntity = getReaderById(readerId);
         if (readerRepository.existsByUsername(newReader.getUsername())){
             throw new BookshelfsException(ErrorType.CLIENT_ERROR, "Логин уже занят");
         }
@@ -51,5 +47,10 @@ public class ReaderService {
         readerEntity.setPublicName(newReader.getPublicName());
         readerRepository.save(readerEntity);
         return "Данные успешно изменены";
+    }
+
+    private ReaderEntity getReaderById(Long readerId) {
+        return readerRepository.findById(readerId).orElseThrow(() -> new BookshelfsException(ErrorType.NOT_FOUND,
+                "Пользователь не найден с id: " + readerId));
     }
 }
