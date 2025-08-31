@@ -30,6 +30,19 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
 
+  thymeleaf:
+    enabled: true
+    check-template: true
+    check-template-location: true
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    cache: false
+  mvc:
+    hidden-method:
+      filter:
+        enabled: true
 
 app:
   base-url: ${BASE_URL}
@@ -38,8 +51,8 @@ jwt:
   expiration: 86400000 # 24 часа
 
 hcaptcha:
-  secret: ${RECAPTCHA_SECRET:ES_d2e7f30776234e28923fbc73953a103b}
-  site: ${RECAPTCHA_SITE:07f4e8d8-cce0-4b8e-9b4a-5004ec1a7c28}
+  secret: ${RECAPTCHA_SECRET:0x0000000000000000000000000000000000000000}
+  site: ${RECAPTCHA_SITE:10000000-ffff-ffff-ffff-000000000001}
 
 logging:
   level:

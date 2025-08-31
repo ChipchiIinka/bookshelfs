@@ -14,10 +14,14 @@ public class EmailService {
     @Value("${app.base-url}")
     private String baseUrl;
 
+    @Value("${spring.mail.username}")
+    private String fromEmail;
+
     public void sendVerificationEmail(String email, String verificationToken) {
         String verificationUrl = baseUrl + "/auth/verify-email?token=" + verificationToken;
 
         SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setFrom(fromEmail);
         mail.setTo(email);
         mail.setSubject("Подтверждение регистрации");
         mail.setText("Для активации аккаунта перейдите по ссылке: " + verificationUrl);
@@ -26,6 +30,7 @@ public class EmailService {
 
     public void sendNotifyEmail(String email, String subject, String body) {
         SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setFrom(fromEmail);
         mail.setTo(email);
         mail.setSubject(subject);
         mail.setText(body);
