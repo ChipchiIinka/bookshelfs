@@ -2,11 +2,11 @@ spring:
   application:
     name: bookshelfs
   mail:
-    host:  ${MAIL_HOST}
-    port:  ${MAIL_PORT}
+    host: ${MAIL_HOST:smtp.yandex.ru}
+    port: ${MAIL_PORT:587}
     ssl:
       enabled: false
-    username:  ${MAIL_USERNAME}
+    username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
     properties:
       mail:
@@ -45,9 +45,9 @@ spring:
         enabled: true
 
 app:
-  base-url: ${BASE_URL}
+  base-url: ${BASE_URL:http://127.0.0.1:8080}
 jwt:
-  secret: ${JWT_SECRET}
+  secret: ${JWT_SECRET:9491f6bafbc5aed727b89d6998f38df3cc6651be2152d80f2d5e2e07a120ddd0}
   expiration: 86400000 # 24 часа
 
 hcaptcha:
